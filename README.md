@@ -40,6 +40,57 @@ Battery level monitor with low battery notifications.
 cargo run --bin battery-monitor
 ```
 
+### 7. port-scanner
+Fast TCP port scanner with concurrent connections.
+```bash
+cargo run --bin port-scanner -- example.com -s 1 -e 1000
+```
+
+### 8. file-hasher
+Calculate file hashes with multiple algorithms (MD5, SHA256, SHA512).
+```bash
+cargo run --bin file-hasher -- file.txt --algorithm all
+```
+
+### 9. json-formatter
+Format, validate, and colorize JSON data.
+```bash
+cat data.json | cargo run --bin json-formatter -- - --color
+```
+
+### 10. base64-tool
+Encode and decode base64 data.
+```bash
+echo "Hello" | cargo run --bin base64-tool -- -
+cargo run --bin base64-tool -- file.txt --decode
+```
+
+### 11. word-counter
+Advanced word counter with frequency analysis.
+```bash
+cargo run --bin word-counter -- file.txt --frequency
+```
+
+### 12. timestamp
+Convert between Unix timestamps and human-readable dates.
+```bash
+cargo run --bin timestamp -- now
+cargo run --bin timestamp -- 1234567890
+```
+
+### 13. passgen
+Generate secure passwords with strength checking.
+```bash
+cargo run --bin passgen -- --length 20 --check-strength
+cargo run --bin passgen -- --memorable --length 30
+```
+
+### 14. url-parser
+Parse and analyze URLs with query parameter extraction.
+```bash
+cargo run --bin url-parser -- "https://example.com/path?key=value" --decode
+```
+
 ## Building
 
 Build all binaries:
