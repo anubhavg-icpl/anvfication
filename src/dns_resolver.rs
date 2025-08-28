@@ -56,10 +56,35 @@ fn question_to_bytes(question: &DNSQuestion) -> Vec<u8> {
     bytes
 }
 
+fn build_query(domain: &str, record_type: u16) -> Vec<u8> {
+    let id = rand::random::<u16>();
+    
+    let header = DNSHeader {
+        id,
+        flags: 0x0100, // Standard query with recursion desired
+        num_questions: 1,
+        num_answers: 0,
+        num_authorities: 0,
+        num_additionals: 0,
+    };
+    
+    let question = DNSQuestion {
+        name: encode_dns_name(domain),
+        type_: record_type,
+        class: 1, // IN (Internet)
+    };
+    
+    let mut query = Vec::new();
+    query.extend(header_to_bytes(&header));
+    query.extend(question_to_bytes(&question));
+    
+    query
+}
+
 fn main() {
     println!("DNS Resolver starting...");
     
     let domain = "example.com";
-    let encoded = encode_dns_name(domain);
-    println!("Encoded domain: {:?}", encoded);
+    let query = build_query(domain, 1); // Type A record
+    println!("Built DNS query of {} bytes", query.len());
 }
