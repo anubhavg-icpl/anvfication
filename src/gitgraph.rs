@@ -35,19 +35,25 @@ fn get_path(dir: &str, file: &mut std::fs::File) -> std::io::Result<()> {
     Ok(())
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
     let args = Args::parse();
     
     if let Some(dir) = args.add {
         let filename = format!("{}.gitgraph", args.email);
-        let mut file = OpenOptions::new()
-            .create(true)
-            .append(true)
-            .open(&filename)
-            .expect("Failed to open file");
-            
-        if let Err(e) = get_path(&dir, &mut file) {
-            eprintln!("Error: {}", e);
-        }
+        
+        let handle = tokio::spawn(async move {
+            let mut file = OpenOptions::new()
+                .create(true)
+                .append(true)
+                .open(&filename)
+                .expect("Failed to open file");
+                
+            if let Err(e) = get_path(&dir, &mut file) {
+                eprintln!("Error: {}", e);
+            }
+        });
+        
+        handle.await.unwrap();
     }
 }
