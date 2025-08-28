@@ -34,11 +34,22 @@ async fn main() {
         .filter_map(|line| line.ok())
         .collect();
     
-    // Create concurrent tasks
+    // Create concurrent tasks with limit
     let mut tasks = JoinSet::new();
+    const MAX_CONCURRENT: usize = 10;
     
     for path in paths {
         let url = format!("{}/{}", base_url.trim_end_matches('/'), path);
+        
+        // Limit concurrent tasks
+        while tasks.len() >= MAX_CONCURRENT {
+            if let Some(result) = tasks.join_next().await {
+                if let Ok(status) = result {
+                    println!("{}", status);
+                }
+            }
+        }
+        
         tasks.spawn(check_url(url));
     }
     
