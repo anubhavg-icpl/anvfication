@@ -95,6 +95,22 @@ impl Game {
         println!();
         println!("Score: {}", self.score);
     }
+    
+    fn input(&mut self) -> io::Result<()> {
+        if event::poll(Duration::from_millis(10))? {
+            if let Event::Key(KeyEvent { code, .. }) = event::read()? {
+                match code {
+                    KeyCode::Char('a') | KeyCode::Left => self.dir = Direction::Left,
+                    KeyCode::Char('d') | KeyCode::Right => self.dir = Direction::Right,
+                    KeyCode::Char('w') | KeyCode::Up => self.dir = Direction::Up,
+                    KeyCode::Char('s') | KeyCode::Down => self.dir = Direction::Down,
+                    KeyCode::Char('x') | KeyCode::Esc => self.game_over = true,
+                    _ => {}
+                }
+            }
+        }
+        Ok(())
+    }
 }
 
 fn main() -> io::Result<()> {
