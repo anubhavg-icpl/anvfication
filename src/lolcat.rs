@@ -16,8 +16,15 @@ fn main() {
     let mut buffer = String::new();
     io::stdin().read_to_string(&mut buffer).unwrap();
     
-    for (i, ch) in buffer.chars().enumerate() {
-        let (r, g, b) = color_screen(i, 0.1);
-        print!("\x1b[38;2;{};{};{}m{}\x1b[0m", r, g, b, ch);
+    let mut color_index = 0;
+    for ch in buffer.chars() {
+        if ch == '\n' {
+            println!();
+            color_index = 0;
+        } else {
+            let (r, g, b) = color_screen(color_index, 0.1);
+            print!("\x1b[38;2;{};{};{}m{}\x1b[0m", r, g, b, ch);
+            color_index += 1;
+        }
     }
 }
