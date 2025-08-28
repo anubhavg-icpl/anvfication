@@ -14,7 +14,10 @@ fn color_screen(i: usize, freq: f64) -> (u8, u8, u8) {
 
 fn main() {
     let mut buffer = String::new();
-    io::stdin().read_to_string(&mut buffer).unwrap();
+    if let Err(e) = io::stdin().read_to_string(&mut buffer) {
+        eprintln!("Error reading input: {}", e);
+        std::process::exit(1);
+    }
     
     let mut color_index = 0;
     for ch in buffer.chars() {
