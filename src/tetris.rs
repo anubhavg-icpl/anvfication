@@ -93,9 +93,9 @@ impl Tetromino {
         }
     }
     
-    fn shape(&self) -> &Vec<Vec<bool>> {
+    fn shape(&self) -> Vec<Vec<bool>> {
         let shapes = self.tetromino_type.shapes();
-        &shapes[self.rotation % shapes.len()]
+        shapes[self.rotation % shapes.len()].clone()
     }
     
     fn rotate(&mut self) {
@@ -311,7 +311,9 @@ impl Game {
                 }
                 
                 match cell {
-                    Cell::Empty => stdout.queue(Print(" "))?,
+                    Cell::Empty => {
+                        stdout.queue(Print(" "))?;
+                    }
                     Cell::Filled(color) => {
                         stdout.queue(SetBackgroundColor(color))?;
                         stdout.queue(Print(" "))?;
@@ -345,7 +347,7 @@ impl Game {
         stdout.queue(cursor::MoveTo(stats_x, 6))?;
         stdout.queue(Print("Next:"))?;
         
-        let next_shape = &self.next_piece.shapes()[0];
+        let next_shape = self.next_piece.shapes()[0].clone();
         for (y, row) in next_shape.iter().enumerate() {
             stdout.queue(cursor::MoveTo(stats_x, 7 + y as u16))?;
             for &cell in row {
