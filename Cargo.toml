@@ -54,6 +54,10 @@ path = "src/word_counter.rs"
 name = "timestamp"
 path = "src/timestamp.rs"
 
+[[bin]]
+name = "passgen"
+path = "src/passgen.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
