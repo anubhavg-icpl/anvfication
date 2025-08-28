@@ -111,6 +111,60 @@ impl Game {
         }
         Ok(())
     }
+    
+    fn logic(&mut self) {
+        // Move tail
+        let mut prev_x = if !self.tail_x.is_empty() { self.tail_x[0] } else { self.x };
+        let mut prev_y = if !self.tail_y.is_empty() { self.tail_y[0] } else { self.y };
+        
+        if !self.tail_x.is_empty() {
+            self.tail_x[0] = self.x;
+            self.tail_y[0] = self.y;
+        }
+        
+        for i in 1..self.tail_x.len() {
+            let prev2_x = self.tail_x[i];
+            let prev2_y = self.tail_y[i];
+            self.tail_x[i] = prev_x;
+            self.tail_y[i] = prev_y;
+            prev_x = prev2_x;
+            prev_y = prev2_y;
+        }
+        
+        // Move head
+        match self.dir {
+            Direction::Left => {
+                if self.x > 0 { self.x -= 1; } else { self.game_over = true; }
+            }
+            Direction::Right => {
+                if self.x < WIDTH - 1 { self.x += 1; } else { self.game_over = true; }
+            }
+            Direction::Up => {
+                if self.y > 0 { self.y -= 1; } else { self.game_over = true; }
+            }
+            Direction::Down => {
+                if self.y < HEIGHT - 1 { self.y += 1; } else { self.game_over = true; }
+            }
+            Direction::Stop => {}
+        }
+        
+        // Check collision with tail
+        for i in 0..self.tail_x.len() {
+            if self.tail_x[i] == self.x && self.tail_y[i] == self.y {
+                self.game_over = true;
+            }
+        }
+        
+        // Check fruit collection
+        if self.x == self.fruit_x && self.y == self.fruit_y {
+            self.score += 10;
+            let mut rng = rand::thread_rng();
+            self.fruit_x = rng.gen_range(0..WIDTH);
+            self.fruit_y = rng.gen_range(0..HEIGHT);
+            self.tail_x.push(0);
+            self.tail_y.push(0);
+        }
+    }
 }
 
 fn main() -> io::Result<()> {
