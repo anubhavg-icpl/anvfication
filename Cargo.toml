@@ -50,6 +50,10 @@ path = "src/base64_tool.rs"
 name = "word-counter"
 path = "src/word_counter.rs"
 
+[[bin]]
+name = "timestamp"
+path = "src/timestamp.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
@@ -64,3 +68,4 @@ hex = "0.4"
 serde_json = "1.0"
 colored = "2.0"
 base64 = "0.21"
+chrono = "0.4"
