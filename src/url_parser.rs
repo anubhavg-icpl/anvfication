@@ -168,8 +168,8 @@ fn main() {
     // Additional info
     println!();
     println!("{}", "Additional Info:".bold());
-    println!("{:15} {}", "Has authority:".dim(), parsed.has_authority());
-    println!("{:15} {}", "Cannot be base:".dim(), parsed.cannot_be_a_base());
+    println!("{:15} {}", "Has authority:".bright_black(), parsed.has_authority());
+    println!("{:15} {}", "Cannot be base:".bright_black(), parsed.cannot_be_a_base());
     
     if let Some(user) = parsed.username() {
         if !user.is_empty() {
@@ -181,9 +181,6 @@ fn main() {
         println!("{:15} {}", "Password:".red(), "*".repeat(pass.len()));
     }
 }
-
-// Add urlencoding dependency
-use std::borrow::Cow;
 
 mod urlencoding {
     pub fn decode(s: &str) -> Result<std::borrow::Cow<str>, std::string::FromUtf8Error> {
