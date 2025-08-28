@@ -95,14 +95,6 @@ fn send_query(server_ip: &str, domain: &str, record_type: u16) -> io::Result<Vec
     Ok(response)
 }
 
-fn parse_ip(data: &[u8]) -> String {
-    if data.len() == 4 {
-        format!("{}.{}.{}.{}", data[0], data[1], data[2], data[3])
-    } else {
-        format!("{:?}", data)
-    }
-}
-
 fn main() -> io::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     
