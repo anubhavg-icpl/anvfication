@@ -30,6 +30,10 @@ path = "src/dns_resolver.rs"
 name = "battery-monitor"
 path = "src/battery_monitor.rs"
 
+[[bin]]
+name = "port-scanner"
+path = "src/port_scanner.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
