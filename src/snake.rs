@@ -168,7 +168,24 @@ impl Game {
 }
 
 fn main() -> io::Result<()> {
+    // Setup terminal
+    terminal::enable_raw_mode()?;
+    let mut stdout = io::stdout();
+    stdout.execute(terminal::Clear(ClearType::All))?;
+    
     let mut game = Game::new();
-    game.draw();
+    
+    // Game loop
+    while !game.game_over {
+        game.draw();
+        game.input()?;
+        game.logic();
+        std::thread::sleep(Duration::from_millis(100));
+    }
+    
+    // Cleanup
+    terminal::disable_raw_mode()?;
+    println!("\nGame Over! Final Score: {}", game.score);
+    
     Ok(())
 }
