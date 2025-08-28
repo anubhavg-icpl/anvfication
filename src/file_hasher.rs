@@ -1,5 +1,4 @@
 use clap::Parser;
-use md5::Md5;
 use sha2::{Sha256, Sha512, Digest};
 use std::fs::File;
 use std::io::{self, Read};
@@ -25,9 +24,8 @@ enum HashAlgorithm {
 }
 
 fn calculate_md5(data: &[u8]) -> String {
-    let mut hasher = Md5::new();
-    hasher.update(data);
-    hex::encode(hasher.finalize())
+    let digest = md5::compute(data);
+    format!("{:x}", digest)
 }
 
 fn calculate_sha256(data: &[u8]) -> String {
