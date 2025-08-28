@@ -1,6 +1,8 @@
 use clap::Parser;
-use std::fs;
+use std::fs::OpenOptions;
+use std::io::Write;
 use std::path::Path;
+use walkdir::WalkDir;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -12,7 +14,34 @@ struct Args {
     email: String,
 }
 
+fn get_path(dir: &str, file: &mut std::fs::File) -> std::io::Result<()> {
+    for entry in WalkDir::new(dir) {
+        let entry = entry?;
+        let path = entry.path();
+        
+        if path.file_name() == Some(std::ffi::OsStr::new(".git")) {
+            if path.is_dir() {
+                let parent = path.parent().unwrap();
+                writeln!(file, "{}", parent.display())?;
+            }
+        }
+    }
+    Ok(())
+}
+
 fn main() {
     let args = Args::parse();
-    println!("Email: {}", args.email);
+    
+    if let Some(dir) = args.add {
+        let filename = format!("{}.gitgraph", args.email);
+        let mut file = OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(&filename)
+            .expect("Failed to open file");
+            
+        if let Err(e) = get_path(&dir, &mut file) {
+            eprintln!("Error: {}", e);
+        }
+    }
 }

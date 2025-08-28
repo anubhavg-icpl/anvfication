@@ -10,3 +10,4 @@ path = "src/gitgraph.rs"
 
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
+walkdir = "2.3"
