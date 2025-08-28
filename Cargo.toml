@@ -70,6 +70,14 @@ path = "src/tetris.rs"
 name = "game2048"
 path = "src/game2048.rs"
 
+[[bin]]
+name = "minesweeper"
+path = "src/minesweeper.rs"
+
+[[bin]]
+name = "pong"
+path = "src/pong.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
