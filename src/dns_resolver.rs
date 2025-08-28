@@ -1,5 +1,5 @@
-use std::net::{UdpSocket, SocketAddr};
 use std::io;
+use std::net::{SocketAddr, UdpSocket};
 
 const DNS_PORT: u16 = 53;
 const ROOT_NAME_SERVER: &str = "198.41.0.4";
