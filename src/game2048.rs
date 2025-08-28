@@ -89,7 +89,6 @@ impl Game {
     }
     
     fn move_tiles(&mut self, direction: Direction) -> bool {
-        let mut moved = false;
         let old_grid = self.grid.clone();
         
         match direction {
@@ -169,7 +168,7 @@ impl Game {
             }
         }
         
-        moved = self.grid != old_grid;
+        let moved = self.grid != old_grid;
         
         if moved {
             self.moves += 1;
@@ -180,7 +179,7 @@ impl Game {
         moved
     }
     
-    fn merge_line(&mut self, mut line: Vec<u32>) -> Vec<u32> {
+    fn merge_line(&mut self, line: Vec<u32>) -> Vec<u32> {
         let mut result = Vec::new();
         let mut i = 0;
         

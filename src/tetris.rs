@@ -11,7 +11,6 @@ use std::time::{Duration, Instant};
 
 const BOARD_WIDTH: usize = 10;
 const BOARD_HEIGHT: usize = 20;
-const PREVIEW_SIZE: usize = 4;
 
 #[derive(Clone, Copy, PartialEq)]
 enum Cell {
@@ -394,7 +393,6 @@ fn main() -> io::Result<()> {
     stdout.execute(cursor::Hide)?;
     
     let mut game = Game::new();
-    let mut last_input = Instant::now();
     
     loop {
         game.draw(&mut stdout)?;
@@ -422,7 +420,6 @@ fn main() -> io::Result<()> {
                         KeyCode::Char('q') | KeyCode::Esc => break,
                         _ => {}
                     }
-                    last_input = Instant::now();
                 }
             }
             
