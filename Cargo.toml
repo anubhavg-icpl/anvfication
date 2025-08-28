@@ -66,6 +66,10 @@ path = "src/url_parser.rs"
 name = "tetris"
 path = "src/tetris.rs"
 
+[[bin]]
+name = "game2048"
+path = "src/game2048.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
