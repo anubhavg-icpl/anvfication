@@ -3,6 +3,8 @@ name = "anvfication"
 version = "0.1.0"
 edition = "2021"
 authors = ["anubhavg@infopercept.com"]
+description = "A collection of useful CLI tools written in Rust"
+repository = "https://github.com/anubhavg-icpl/anvfication"
 
 [[bin]]
 name = "gitgraph"
