@@ -4,11 +4,8 @@ use std::io::{BufRead, BufReader};
 use tokio::task::JoinSet;
 
 async fn check_url(url: String) -> String {
-    match reqwest::Client::new()
-        .get(&url)
-        .send()
-        .await
-    {
+    let client = reqwest::Client::new();
+    match client.get(&url).send().await {
         Ok(response) => format!("{} - {}", url, response.status().as_u16()),
         Err(e) => format!("{} - Error: {}", url, e),
     }
