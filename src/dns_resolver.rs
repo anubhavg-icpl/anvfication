@@ -81,10 +81,49 @@ fn build_query(domain: &str, record_type: u16) -> Vec<u8> {
     query
 }
 
-fn main() {
-    println!("DNS Resolver starting...");
+fn send_query(server_ip: &str, domain: &str, record_type: u16) -> io::Result<Vec<u8>> {
+    let query = build_query(domain, record_type);
+    let server_addr: SocketAddr = format!("{}:{}", server_ip, DNS_PORT).parse().unwrap();
     
-    let domain = "example.com";
-    let query = build_query(domain, 1); // Type A record
-    println!("Built DNS query of {} bytes", query.len());
+    let socket = UdpSocket::bind("0.0.0.0:0")?;
+    socket.send_to(&query, server_addr)?;
+    
+    let mut response = vec![0u8; 1024];
+    let (size, _) = socket.recv_from(&mut response)?;
+    response.truncate(size);
+    
+    Ok(response)
+}
+
+fn parse_ip(data: &[u8]) -> String {
+    if data.len() == 4 {
+        format!("{}.{}.{}.{}", data[0], data[1], data[2], data[3])
+    } else {
+        format!("{:?}", data)
+    }
+}
+
+fn main() -> io::Result<()> {
+    let args: Vec<String> = std::env::args().collect();
+    
+    if args.len() < 2 {
+        eprintln!("Usage: {} <domain>", args[0]);
+        std::process::exit(1);
+    }
+    
+    let domain = &args[1];
+    println!("Resolving {}...", domain);
+    
+    match send_query(ROOT_NAME_SERVER, domain, 1) {
+        Ok(response) => {
+            println!("Received {} byte response", response.len());
+            // Simple parsing - just show we got a response
+            if response.len() > 12 {
+                println!("DNS response received successfully");
+            }
+        }
+        Err(e) => eprintln!("Error: {}", e),
+    }
+    
+    Ok(())
 }
