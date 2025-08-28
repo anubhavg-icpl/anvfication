@@ -38,6 +38,10 @@ path = "src/port_scanner.rs"
 name = "file-hasher"
 path = "src/file_hasher.rs"
 
+[[bin]]
+name = "json-formatter"
+path = "src/json_formatter.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
@@ -49,3 +53,5 @@ notify-rust = "4.9"
 sha2 = "0.10"
 md5 = "0.7"
 hex = "0.4"
+serde_json = "1.0"
+colored = "2.0"
