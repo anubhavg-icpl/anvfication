@@ -12,6 +12,10 @@ path = "src/gitgraph.rs"
 name = "http-status"
 path = "src/http_status.rs"
 
+[[bin]]
+name = "lolcat"
+path = "src/lolcat.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
