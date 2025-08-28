@@ -15,7 +15,13 @@ struct Args {
 }
 
 fn get_path(dir: &str, file: &mut std::fs::File) -> std::io::Result<()> {
-    for entry in WalkDir::new(dir) {
+    let skip_dirs = vec!["node_modules", ".cargo", "pip", ".cache", ".config", ".local"];
+    
+    for entry in WalkDir::new(dir)
+        .into_iter()
+        .filter_entry(|e| {
+            !skip_dirs.contains(&e.file_name().to_str().unwrap_or(""))
+        }) {
         let entry = entry?;
         let path = entry.path();
         
