@@ -1,6 +1,6 @@
+use clap::Parser;
 use std::time::Duration;
 use tokio::task::JoinSet;
-use clap::Parser;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about = "Fast TCP port scanner", long_about = None)]

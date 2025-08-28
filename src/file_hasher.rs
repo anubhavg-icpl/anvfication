@@ -1,9 +1,10 @@
 use clap::Parser;
-use sha2::{Sha256, Sha512, Digest};
+use hex;
+use md5;
+use sha2::{Digest, Sha256, Sha512};
 use std::fs::File;
 use std::io::{self, Read};
 use std::path::Path;
-use hex;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about = "Calculate file hashes", long_about = None)]
