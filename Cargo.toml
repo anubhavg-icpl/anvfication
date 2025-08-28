@@ -46,6 +46,10 @@ path = "src/json_formatter.rs"
 name = "base64-tool"
 path = "src/base64_tool.rs"
 
+[[bin]]
+name = "word-counter"
+path = "src/word_counter.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
