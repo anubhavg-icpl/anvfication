@@ -32,6 +32,35 @@ fn main() {
     if !Path::new(BATTERY_PATH).exists() {
         eprintln!("Battery capacity file not found at {}", BATTERY_PATH);
         eprintln!("This might be a different system or no battery present");
+        eprintln!("Note: On macOS, use 'pmset -g batt' instead");
         std::process::exit(1);
+    }
+    
+    println!("Monitoring battery level...");
+    println!("Press Ctrl+C to stop");
+    
+    loop {
+        match check_battery() {
+            Ok(level) => {
+                println!("Battery level: {}%", level);
+                
+                if level <= LOW_THRESHOLD {
+                    push_notification(level);
+                }
+                
+                // Sleep duration based on battery level
+                let sleep_seconds = if level <= LOW_THRESHOLD {
+                    60 // Check every minute when low
+                } else {
+                    level as u64 * 10 // Check less frequently when higher
+                };
+                
+                thread::sleep(Duration::from_secs(sleep_seconds));
+            }
+            Err(e) => {
+                eprintln!("Error reading battery: {}", e);
+                thread::sleep(Duration::from_secs(60));
+            }
+        }
     }
 }
