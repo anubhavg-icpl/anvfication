@@ -171,10 +171,9 @@ fn main() {
     println!("{:15} {}", "Has authority:".bright_black(), parsed.has_authority());
     println!("{:15} {}", "Cannot be base:".bright_black(), parsed.cannot_be_a_base());
     
-    if let Some(user) = parsed.username() {
-        if !user.is_empty() {
-            println!("{:15} {}", "Username:".red(), user);
-        }
+    let username = parsed.username();
+    if !username.is_empty() {
+        println!("{:15} {}", "Username:".red(), username);
     }
     
     if let Some(pass) = parsed.password() {
