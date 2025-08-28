@@ -2,6 +2,40 @@
 
 A collection of useful command-line tools written in Rust by anubhavg@infopercept.com
 
+## Games Included
+
+### 🎮 Terminal Games
+
+#### 1. Snake
+Classic snake game with colorful graphics.
+```bash
+cargo run --bin snake
+```
+
+#### 2. Tetris
+Full Tetris implementation with all 7 tetrominoes.
+```bash
+cargo run --bin tetris
+```
+
+#### 3. 2048
+Addictive sliding puzzle game.
+```bash
+cargo run --bin game2048
+```
+
+#### 4. Minesweeper
+Classic mine detection game with flood fill.
+```bash
+cargo run --bin minesweeper
+```
+
+#### 5. Pong
+Retro paddle game with AI opponent.
+```bash
+cargo run --bin pong
+```
+
 ## Tools Included
 
 ### 1. gitgraph
