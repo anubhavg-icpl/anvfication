@@ -7,8 +7,8 @@ use rand::Rng;
 use std::io;
 use std::time::Duration;
 
-const WIDTH: usize = 20;
-const HEIGHT: usize = 20;
+const WIDTH: usize = 20;  // Game board width
+const HEIGHT: usize = 20; // Game board height
 
 #[derive(Clone, Copy, PartialEq)]
 enum Direction {
