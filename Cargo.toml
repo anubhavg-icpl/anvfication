@@ -20,6 +20,10 @@ path = "src/lolcat.rs"
 name = "snake"
 path = "src/snake.rs"
 
+[[bin]]
+name = "dns-resolver"
+path = "src/dns_resolver.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
