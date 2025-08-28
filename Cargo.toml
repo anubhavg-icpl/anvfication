@@ -24,6 +24,10 @@ path = "src/snake.rs"
 name = "dns-resolver"
 path = "src/dns_resolver.rs"
 
+[[bin]]
+name = "battery-monitor"
+path = "src/battery_monitor.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
@@ -31,3 +35,4 @@ tokio = { version = "1", features = ["full"] }
 reqwest = { version = "0.11", features = ["stream"] }
 crossterm = "0.27"
 rand = "0.8"
+notify-rust = "4.9"
