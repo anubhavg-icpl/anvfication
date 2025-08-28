@@ -42,6 +42,10 @@ path = "src/file_hasher.rs"
 name = "json-formatter"
 path = "src/json_formatter.rs"
 
+[[bin]]
+name = "base64-tool"
+path = "src/base64_tool.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
@@ -55,3 +59,4 @@ md5 = "0.7"
 hex = "0.4"
 serde_json = "1.0"
 colored = "2.0"
+base64 = "0.21"
