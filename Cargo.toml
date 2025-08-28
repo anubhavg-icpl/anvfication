@@ -8,7 +8,12 @@ authors = ["anubhavg@infopercept.com"]
 name = "gitgraph"
 path = "src/gitgraph.rs"
 
+[[bin]]
+name = "http-status"
+path = "src/http_status.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
 tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.11", features = ["stream"] }
