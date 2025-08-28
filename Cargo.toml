@@ -62,6 +62,10 @@ path = "src/passgen.rs"
 name = "url-parser"
 path = "src/url_parser.rs"
 
+[[bin]]
+name = "tetris"
+path = "src/tetris.rs"
+
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 walkdir = "2.3"
